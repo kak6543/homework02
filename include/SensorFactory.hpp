@@ -5,21 +5,28 @@
 #include "TemperatureSensor.hpp"
 #include "AltitudeSensor.hpp"
 #include "AirspeedSensor.hpp"
+#include <iostream> 
 
 #include <string>
 
-class SensorFactory { 
+class SensorFactory {
 public:
-    static Sensor* createSensor(const std::string& type) { // static function creates sensor based on the given type
+    static Sensor* createSensor(const std::string& type) {
+        Sensor* sensor = nullptr;
+
         if (type == "Temperature") {
-            return new TemperatureSensor();
+            sensor = new TemperatureSensor();
         } else if (type == "Altitude") {
-            return new AltitudeSensor();
+            sensor = new AltitudeSensor();
         } else if (type == "Airspeed") {
-            return new AirspeedSensor();
-        } else {
-            return nullptr; // return null if the sensor type DNE
+            sensor = new AirspeedSensor();
         }
+
+        if (sensor) {
+            std::cout << "Sensor created " << sensor << " of type \"" << type << "\"\n";
+        }
+
+        return sensor;
     }
 };
 
